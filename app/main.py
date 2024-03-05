@@ -23,6 +23,7 @@ async def lifespan(app: FastAPI):
     database.connect()
     database.create_tables([User,Task])
     yield
+    database.close()
 
 app = FastAPI(title="Whelp Python Task", version="0.1.0",lifespan=lifespan)
 
