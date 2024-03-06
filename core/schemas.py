@@ -40,4 +40,4 @@ class StatusResponse(BaseModel):
     id: int
     status: str
     ip: str
-    data: dict
+    data: dict|None

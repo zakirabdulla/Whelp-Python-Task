@@ -19,6 +19,8 @@ from .schemas import (
     StatusResponse,
 )
 
+from celery_tasks.tasks import fetch_ip_data
+
 from .usecases import user_usecase, task_usecase
 
 router = APIRouter(tags=["core"])
@@ -55,12 +57,7 @@ def obtain_token(*,token: ObtainAccessTokenSchema) -> AccessTokenSchema:
 
 
 
-from celery_tasks.tasks import add, fetch_ip_data
 
-@router.post("/test/")
-def test():
-    task = fetch_ip_data.apply_async(args=["0.0.0.0"])
-    return {"task_id":task.id}
 
 @router.post("/task/")
 def create_task(*,current_user: User = Depends(get_current_user),data:TaskCreate) -> TaskCreateResponse:
