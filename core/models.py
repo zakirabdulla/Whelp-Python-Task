@@ -25,7 +25,6 @@ class Task(BaseModel):
     )
 
     user = ForeignKeyField(User, backref='tasks')
-    uid = CharField(unique=True,null=True)
     status = CharField(choices=STATUS_CHOICES, default='pending')
     ip = CharField()
     data = JSONField()

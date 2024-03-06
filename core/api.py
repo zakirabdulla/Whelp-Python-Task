@@ -64,8 +64,6 @@ def create_task(*,current_user: User = Depends(get_current_user),data:TaskCreate
     str_ip = str(data.ip)
     task = task_usecase.create_task(current_user,str_ip)
     celery_task = fetch_ip_data.apply_async(args=[task.id])
-    task.uid = str(celery_task.id)
-    task.save()
     return {"id":task.id}
 
 @router.get("/status/{id}")
